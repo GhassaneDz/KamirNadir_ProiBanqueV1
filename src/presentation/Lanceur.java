@@ -425,22 +425,27 @@ public class Lanceur {
 	
 	public static void effectuerVirement(Conseiller conseiller) {
 		listerClients(conseiller);
-		System.out.println("----  Saisir l'identifient du client pour lequel vous voulez faire un virement ----");
-		int idClient = sc.nextInt() ;
+		System.out.println("----  Saisir l'identifient du client pour a débiter----");
+		int idClient1 = sc.nextInt() ;
+		System.out.println("----  Saisir l'identifient du client pour a créditer----");
+		int idClient2 = sc.nextInt() ;
 		System.out.println("----  Saisir le montant de votre virement ----");
 		double montant = sc.nextDouble();
-		List<Compte> mesComptes = listerComptes(service.lireClient(idClient), conseiller);
-		System.out.println("----  Saisir l'identifient du compte sur lequel faire le virement ----");
-		int idCompte = sc.nextInt() ;
+		List<Compte> mesComptes1 = listerComptes(service.lireClient(idClient1), conseiller);
+		List<Compte> mesComptes2 = listerComptes(service.lireClient(idClient2), conseiller);
+		System.out.println("----  Saisir l'identifient du compte à débiter ----");
+		int idCompte1 = sc.nextInt() ;
+		System.out.println("----  Saisir l'identifient du compte sà créditer ----");
+		int idCompte2 = sc.nextInt() ;
 		try {
-			service.effectuerVirement(mesComptes.get(idCompte), montant);
+			service.effectuerVirement(mesComptes1.get(idCompte1), mesComptes2.get(idCompte2), montant);
 		} catch (SoldeInsuffisantException e) {
 			// TODO Auto-generated catch block
 			System.out.println("*************************");
 			System.out.println(e.getMessage() + " !!!!!");
 			System.out.println("*************************");
 		}	
-		listerComptes(service.lireClient(idClient), conseiller);
+		listerComptes(service.lireClient(idClient1), conseiller);
 	}
 	
 	

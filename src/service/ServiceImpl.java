@@ -208,7 +208,7 @@ public class ServiceImpl implements Iservice {
 	}
 
 	@Override
-	public void effectuerVirement(Compte compteDebiteur, Compte compteCrediteur, double montant) {
+	public void effectuerVirement(Compte compteDebiteur, Compte compteCrediteur, double montant) throws SoldeInsuffisantException{
 		double soldeD = compteDebiteur.getSolde();
 		double soldeC = compteCrediteur.getSolde();
 
@@ -219,6 +219,8 @@ public class ServiceImpl implements Iservice {
 				compteDebiteur.setSolde(soldeD - montant);
 				compteCrediteur.setSolde(soldeC + montant);
 			}
+			else 
+				throw new SoldeInsuffisantException("Le montant que vous souhaitez retirer est superieur au solde") ; 
 		} else {
 			
 			double decouvert = ((CompteCourant)compteDebiteur).getDecouvert();
@@ -227,6 +229,8 @@ public class ServiceImpl implements Iservice {
 				compteDebiteur.setSolde(soldeD - montant);
 				compteCrediteur.setSolde(soldeC + montant);
 			}
+			else 
+				throw new SoldeInsuffisantException("Le montant que vous souhaitez retirer est superieur au solde") ; 
 			
 		}
 
