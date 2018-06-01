@@ -12,8 +12,8 @@ import domaine.Conseiller;
 
 public class ServiceImpl implements Iservice {
 
-	public static int idClient = 10;
-	public static int idCompte = 100;
+	public static int idClient = 0;
+	public static int idCompte = 0;
 	
 	private List<Compte> comptes = new ArrayList<Compte>();
 	private List<Client> clients = new ArrayList<Client>();
