@@ -167,8 +167,9 @@ public class Lanceur {
 		System.out.println("#                                                             #");
 		System.out.println("#                      1. CREER UN COMPTE                     #");
 		System.out.println("#                      2. MODIFIER UN COMPTE                  #");
-		System.out.println("#                      3. SUPPRIMER UN COMPTE                 #");
-		System.out.println("#                      4. LISTER DES COMPTES                  #");
+		System.out.println("#                      3. EFFECTUER VIREMENT                  #");
+		System.out.println("#                      4. SUPPRIMER UN COMPTE                 #");
+		System.out.println("#                      5. LISTER DES COMPTES                  #");
 		System.out.println("#                      0. REVENIR AU MENU                     #");
 		System.out.println("#                                                             #");
 		System.out.println("###############################################################");
@@ -331,7 +332,7 @@ public class Lanceur {
 			System.out.println("Vous n'avez aucun client, veuillez créer un client pour lequel vous voulez créer un compte");
 			System.out.println();
 		} else {
-			System.out.print("tapez id du client pour le quel vous créez un compte :");
+			System.out.print("tapez id du client pour lequel vous voulez créer un compte :");
 			int idClient = sc.nextInt();
 			Client client = conseiller.getClients().get(idClient);
 			sc.nextLine();
@@ -374,20 +375,18 @@ public class Lanceur {
 			int idClient = sc.nextInt();
 			Client client = conseiller.getClients().get(idClient);
 			sc.nextLine();
-			listerComptes(client, conseiller);
-			System.out.println();
-			System.out.print("tapez id du compte à supprimer :");
-			int idCompte = sc.nextInt();
-			service.supprimerCompteClient(idCompte, conseiller);
+			List<Compte> comptes = listerComptes(client, conseiller);
 			
-			//int typeCompte = sc.nextInt();
-			//Compte compte;
-			//if (typeCompte == 1) {
-				//compte = new CompteCourant(solde, new Date());
-			//}else {
-				//compte = new CompteEpargne(solde, new Date());
-			//}
-			//service.creerCompteMonClient(compte, client);
+			if(comptes.size() == 0) {
+				System.out.println("Le client n'aucun compte");
+				System.out.println();
+			}else {
+				System.out.println();
+				System.out.print("tapez id du compte à supprimer :");
+				int idCompte = sc.nextInt();
+				service.supprimerCompteClient(idCompte, conseiller);
+				listerComptes(client, conseiller);
+			}
 		}	
 	
 		
@@ -398,7 +397,6 @@ public class Lanceur {
 	//afficher une liste de compte des clients du conseiller	
 	public static List<Compte> listerComptes(Client client, Conseiller conseiller) {
 		List<Compte> comptesDeMonClient = client.getComptes();
-		System.out.println("comptes de mes clients :" + comptesDeMonClient);
 		System.out.println("*************************");
 		System.out.println(" Liste des comptes :");
 		System.out.println("*************************");
@@ -413,7 +411,7 @@ public class Lanceur {
 	public static void listerComptes(Conseiller conseiller) {
 		List<Compte> comptesDeMesClients = service.listeComptesMesClients(conseiller);
 		System.out.println("*************************");
-		System.out.println(" Liste des comptes :");
+		System.out.println(" Liste des comptes de tous les clients:");
 		System.out.println("*************************");
 		Stream<Compte> str = comptesDeMesClients.stream();		
 		str.forEach(System.out::println);

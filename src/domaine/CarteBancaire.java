@@ -1,5 +1,12 @@
 package domaine;
 
+/**
+ * 
+ * @author Adminl
+ * @version 1.0
+ *
+ */
+
 public abstract class CarteBancaire {
 	
 	private int idCarte ; 
@@ -9,6 +16,9 @@ public abstract class CarteBancaire {
 	
 	//----------   Constructeurs ----------
 	
+	/**
+	 * 
+	 */
 	public CarteBancaire() {
 		super();
 	}
