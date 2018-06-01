@@ -138,14 +138,13 @@ public class ServiceImpl implements Iservice {
 	}
 	
 	
-	//à gerer par un throw??????
+
 	@Override
 	public void creerCompteMonClient(Compte c, Client client) {
-		if(client.getComptes().size() != 0) {
+		
 			c.setClient(client);
 			client.getComptes().add(c);
 			this.creerCompte(c);
-		}
 	}
 	
 	
