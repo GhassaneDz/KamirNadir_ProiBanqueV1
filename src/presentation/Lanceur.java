@@ -294,7 +294,7 @@ public class Lanceur {
 		System.out.println();
 		System.out.println("--------  Saisir l'ID du client a modifier");
 		int id = sc.nextInt() ; 
-		Client client = conseiller.getClients().get(id);
+		Client client = service.lireClient(id);
 		
 		System.out.println("--------  Menu des modifications ---------- ");
 		System.out.println("           1. modification du nom");

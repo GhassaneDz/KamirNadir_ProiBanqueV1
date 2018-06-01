@@ -126,11 +126,13 @@ public class ServiceImpl implements Iservice {
 	public void modifierClient(Client client) {
 		
 		int index = 0;
-		for (int i = 0; i <= clients.size(); i++) {
-			if (clients.get(i).getIdClient() == client.getIdClient()) {
-				index = i;
+		
+		for (Client c : clients) {
+			if (c.getIdClient() == client.getIdClient()) {
+				index = clients.indexOf(c);
 			}
 		}
+		
 		clients.set(index, client);
 
 	}
