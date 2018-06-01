@@ -23,6 +23,11 @@ public class Gerant extends Employe{
 	public void setAgence(Agence agence) {
 		this.agence = agence;
 	}
+
+	@Override
+	public String toString() {		
+		return "Gerant ["+super.toString();
+	}
 	
 	
 

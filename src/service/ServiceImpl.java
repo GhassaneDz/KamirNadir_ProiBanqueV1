@@ -12,6 +12,9 @@ import domaine.Conseiller;
 
 public class ServiceImpl implements Iservice {
 
+	public static int idClient = 10;
+	public static int idCompte = 100;
+	
 	private List<Compte> comptes = new ArrayList<Compte>();
 	private List<Client> clients = new ArrayList<Client>();
 	private List<Conseiller> conseillers = new ArrayList<Conseiller>();
@@ -21,7 +24,7 @@ public class ServiceImpl implements Iservice {
 
 	@Override
 	public void creerCompte(Compte compte) {
-
+		compte.setIdCompte(idCompte++);
 		comptes.add(compte);
 	}
 
@@ -51,9 +54,9 @@ public class ServiceImpl implements Iservice {
 	}
 
 	@Override
-	public void creerClient(Client client) {
-
-		clients.add(client);
+	public boolean creerClient(Client client) {
+		client.setIdClient(idClient++);
+		return clients.add(client);
 	}
 
 	@Override
@@ -85,14 +88,12 @@ public class ServiceImpl implements Iservice {
 
 	@Override
 	public CarteBancaire lireCarteBancaire() {
-		// TODO Auto-generated method stub
 		return null;
 
 	}
 
 	@Override
 	public void modifierCarteBancaire(CarteBancaire carte) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -104,8 +105,72 @@ public class ServiceImpl implements Iservice {
 
 	/**************************************
 	 * Fonctionnalités métiers
+	 * @throws NbClientsGeresException 
 	 ************************************************************/
-
+	@Override
+	public void creerMonClient(Client client, Conseiller conseiller) throws NbClientsGeresException {
+		if (conseiller.getClients().size() >= 10) throw new NbClientsGeresException("vous dépassez le nombre de clients max à gérer");
+		this.creerClient(client);
+		this.attribuerConseiller(client, conseiller);
+	}
+	
+	
+	
+	@Override 
+	public void supprimerMonClient(int id, Conseiller conseiller) {
+		Client client = clients.get(id);
+		
+		conseiller.getClients().remove(id); //supprimmer client de la liste des clients du conseiller
+		this.supprimerClient(client);           //supprimer client de la liste des clients de l'agence
+		
+		if(client.getComptes().size() !=0)
+			for (Compte compte : client.getComptes()) //supprimer tous les comptes du client
+				this.supprimerCompte(compte);
+				
+	}
+	
+	
+	@Override
+	public List<Client> listerMesClients(Conseiller conseiller){
+		
+		return conseiller.getClients();
+		
+	}
+	
+	
+	//à gerer par un throw??????
+	@Override
+	public void creerCompteMonClient(Compte c, Client client) {
+		if(client.getComptes().size() != 0) {
+			c.setClient(client);
+			client.getComptes().add(c);
+			this.creerCompte(c);
+		}
+	}
+	
+	
+	
+	public List<Compte> listeComptesMesClients(Conseiller conseiller){
+		List<Compte> comptes = new ArrayList<Compte>();
+		for (Client cl : conseiller.getClients()) {
+			for (Compte c : cl.getComptes() ) {
+				comptes.add(c);
+			}
+		}
+		return comptes;
+	}
+	
+	
+	@Override 
+	public void supprimerCompteClient(int id, Conseiller conseiller) {
+		Compte compte = comptes.get(id);
+		Client client = compte.getClient();
+		this.supprimerCompte(compte);
+		client.getComptes().remove(compte);
+				
+	}
+	
+	
 	@Override
 	public void crediterCompte(Compte compte, double montant) {
 
@@ -122,13 +187,6 @@ public class ServiceImpl implements Iservice {
 
 	}
 
-	@Override
-	public void ajouterTitulaire(Compte compte, Client client) {
-
-		compte.setClient(client);
-		client.getComptes().add(compte);
-
-	}
 
 	@Override
 	public void attribuerConseiller(Client client, Conseiller conseiller) {

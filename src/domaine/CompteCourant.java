@@ -1,5 +1,7 @@
 package domaine;
 
+import java.util.Date;
+
 public class CompteCourant extends Compte {
 	
 	private double decouvert =1000;
@@ -16,9 +18,16 @@ public class CompteCourant extends Compte {
 		super(idCompte);
 	}
 
+	
 
 
-	public CompteCourant(int idCompte, double solde, String dateOuverture, double decouvert) {
+	public CompteCourant(double solde, Date dateOuverture) {
+		super(solde, dateOuverture);
+	}
+
+
+
+	public CompteCourant(int idCompte, double solde, Date dateOuverture, double decouvert) {
 		super(idCompte, solde, dateOuverture);
 		this.decouvert = decouvert;
 	}
@@ -37,12 +46,15 @@ public class CompteCourant extends Compte {
 	 */
 	public void setDecouvert(double decouvert) {
 		this.decouvert = decouvert;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "CompteCourant " + super.toString() +", decouvert=" + decouvert + "€]";
 	} 
 	
-	
-	
-	
-	
-	
+
 
 }

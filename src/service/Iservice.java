@@ -21,7 +21,7 @@ public interface Iservice {
 	
 	// ---------  CRUD Client ---------
 	
-	public void creerClient (Client client) ;
+	public boolean creerClient (Client client) ;
 	public Client lireClient (int idClient) ;
 	public void modifierClient (Client client) ;
 	public void supprimerClient (Client client) ;
@@ -36,9 +36,17 @@ public interface Iservice {
 	public void supprimerCarteBancaire (CarteBancaire carte) ;
 		
 	// -------------------Fonctionnalités métiers ------------------//
+	public void creerMonClient(Client client, Conseiller conseiller) throws NbClientsGeresException;
+	public void supprimerMonClient(int idClient, Conseiller conseiller);
+	public List<Client> listerMesClients(Conseiller conseiller);
+	public void creerCompteMonClient(Compte c, Client client);
+	public void supprimerCompteClient(int id, Conseiller conseiller);
+	public List<Compte> listeComptesMesClients(Conseiller conseiller);
+	
+	
+	
 	public void crediterCompte (Compte compte, double montant) ;
 	public void debiterCompte (Compte compte, double montant) ;
-	public void ajouterTitulaire(Compte compte, Client client) ;
 	public void eliminerClientduSysteme(Client client) ;
 	public void attribuerConseiller(Client client, Conseiller conseiller) ;
 	public void attribuerCarte(Client client, CarteBancaire carte) ;
