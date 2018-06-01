@@ -229,44 +229,57 @@ public class Lanceur {
 	
 	//supprimer un client par un conseiller
 	public static void suppressionClient(Conseiller conseiller) {
-		listerClients(conseiller);
+		List<Client> mesClients = listerClients(conseiller);
 		System.out.println();
-		System.out.print("tapez id du client à supprimer :");
-		int idClient = sc.nextInt();
-		service.supprimerMonClient(idClient, conseiller);
-		listerClients(conseiller);
+		if(mesClients.size() == 0) {
+			System.out.println("Vous n'avez aucun client");
+		} else {
+			System.out.print("tapez id du client à supprimer :");
+			int idClient = sc.nextInt();
+			service.supprimerMonClient(idClient, conseiller);
+			listerClients(conseiller);
+		}
+
 	}
 	
 	
 	//obtenir la liste des clients gérés par un conseiller
-	public static void listerClients(Conseiller conseiller) {
+	public static List<Client> listerClients(Conseiller conseiller) {
 		List<Client> mesClients = conseiller.getClients();
 		System.out.println("*************************");
 		System.out.println(" Liste de mes clients :");
 		System.out.println("*************************");
 		Stream<Client> str = mesClients.stream();		
-		str.forEach(System.out::println);		
+		str.forEach(System.out::println);
+		return mesClients;
 	}
 
 	
-	public static void creationCompte(Conseiller conseiller) {		
-		listerClients(conseiller);
+	public static void creationCompte(Conseiller conseiller) {	
+		
+		List<Client> mesClients = listerClients(conseiller);
 		System.out.println();
-		System.out.print("tapez id du client pour le quel vous créez un compte :");
-		int idClient = sc.nextInt();
-		Client client = conseiller.getClients().get(idClient);
-		sc.nextLine();
-		System.out.print("choisir type de compte : 1- compte courant, 2- compte epargne");
-		int typeCompte = sc.nextInt();
-		System.out.print("solde :");
-		double solde = sc.nextDouble();
-		Compte compte;
-		if (typeCompte == 1) {
-			compte = new CompteCourant(solde, new Date());
-		}else {
-			compte = new CompteEpargne(solde, new Date());
+		if(mesClients.size() == 0) {
+			System.out.println("Vous n'avez aucun client, veuillez créer un client pour lequel vous voulez créer un compte");
+			System.out.println();
+		} else {
+			System.out.print("tapez id du client pour le quel vous créez un compte :");
+			int idClient = sc.nextInt();
+			Client client = conseiller.getClients().get(idClient);
+			sc.nextLine();
+			System.out.print("choisir type de compte : 1- compte courant, 2- compte epargne");
+			int typeCompte = sc.nextInt();
+			System.out.print("solde :");
+			double solde = sc.nextDouble();
+			Compte compte;
+			if (typeCompte == 1) {
+				compte = new CompteCourant(solde, new Date());
+			}else {
+				compte = new CompteEpargne(solde, new Date());
+			}
+			service.creerCompteMonClient(compte, client);
+			listerComptes(client, conseiller);
 		}
-		service.creerCompteMonClient(compte, client);
 				
 	}
 	
@@ -278,13 +291,54 @@ public class Lanceur {
 	
 	
 	//supprimer un compte par un conseiller
+	/**
+	 * @param conseiller
+	 */
 	public static void suppressionCompte(Conseiller conseiller) {
-		listerComptes(conseiller);
-		System.out.print("tapez id du compte à supprimer :");
-		int idCompte = sc.nextInt();
-		service.supprimerCompteClient(idCompte, conseiller);
+		 
+		List<Client> mesClients = listerClients(conseiller);
+		System.out.println();
+		if(mesClients.size() == 0) {
+			System.out.println("Vous n'avez aucun client et aucun compte à supprimer");
+			System.out.println();
+		} else {
+			System.out.print("tapez id du client pour lequel vous voulez supprimer un compte :");
+			int idClient = sc.nextInt();
+			Client client = conseiller.getClients().get(idClient);
+			sc.nextLine();
+			listerComptes(client, conseiller);
+			System.out.println();
+			System.out.print("tapez id du compte à supprimer :");
+			int idCompte = sc.nextInt();
+			service.supprimerCompteClient(idCompte, conseiller);
+			
+			//int typeCompte = sc.nextInt();
+			//Compte compte;
+			//if (typeCompte == 1) {
+				//compte = new CompteCourant(solde, new Date());
+			//}else {
+				//compte = new CompteEpargne(solde, new Date());
+			//}
+			//service.creerCompteMonClient(compte, client);
+		}	
+	
 		
 	}
+	
+	
+	
+	//afficher une liste de compte des clients du conseiller	
+	public static List<Compte> listerComptes(Client client, Conseiller conseiller) {
+		List<Compte> comptesDeMonClient = client.getComptes();
+		System.out.println("*************************");
+		System.out.println(" Liste des comptes :");
+		System.out.println("*************************");
+		Stream<Compte> str = comptesDeMonClient.stream();		
+		str.forEach(System.out::println);
+		return comptesDeMonClient;
+	}
+	
+	
 	
 	//afficher une liste de compte des clients du conseiller	
 	public static void listerComptes(Conseiller conseiller) {
