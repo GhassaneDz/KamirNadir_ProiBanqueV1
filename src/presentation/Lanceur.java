@@ -19,6 +19,7 @@ import service.Iservice;
 import service.NbClientsGeresException;
 import service.ServiceImpl;
 import service.SoldeInsuffisantException;
+import service.VerifPlacementException;
 
 public class Lanceur {
 	
@@ -43,27 +44,28 @@ public class Lanceur {
 
 		
 
-		//Instanciation de clients
+		//Instanciation de clients		
+		Client clientF = new Client("David", "Messir", "22 rue de la pompe ", "75016", "Paris", "PDG", "particulier") ; 
+		Client clientEnt = new Client("MTS", "","Lourcine", "75014","Paris","", "entreprise") ; 
+		Client clientSimp = new Client("boutrin", "nadir", "91 trur", "91120", "Palaiseau","", "particulier") ;
 		
-		Client client1 = new Client(1, "jierre", "ewing", "22rueam", "99820", "Dallas", "", "particulier") ; 
-		Client client2 = new Client(2, "GTM", "","Lourcine", "7514","Paris","", "entreprise") ; 
-		Client client3 = new Client(3, "boutrin", "nadir", "91trur", "91120", "Palaiseau","", "particulier") ;
-				
-		Compte comptep1 = new CompteEpargne(1) ; 
-		Compte comptep2 = new CompteEpargne(2) ;
-		Compte comptep3 = new CompteEpargne(3) ;
+		try {
+			service.creerMonClient(clientF, conseiller);
+			service.creerMonClient(clientEnt, conseiller);
+			service.creerMonClient(clientSimp, conseiller);
+		} catch (NbClientsGeresException e) {
+			System.out.println(e.getMessage());
+		}
 		
 	
+		Compte compteCourantf = new CompteCourant(600000, new Date()) ; 
+		Compte compteCourant2 = new CompteCourant(15000, new Date() );
+		Compte compteCourant3 = new CompteCourant(1500, new Date()) ; 
 		
-		Compte compteCourant1 = new CompteCourant(4) ; 
-		Compte compteCourant2 = new CompteCourant(5) ; 
-		Compte compteCourant3 = new CompteCourant(6) ; 
+		service.creerCompteMonClient(compteCourantf, clientF);
+		service.creerCompteMonClient(compteCourant2, clientEnt);
+		service.creerCompteMonClient(compteCourant3, clientSimp);
 		
-
-		
-		CarteBancaire carte1 = new VisaElectron(100) ;
-		CarteBancaire carte2 = new VisaElectron(200) ;
-		CarteBancaire carte3 = new VisaPremier(300) ;
 		
 		MenuPrincipal();		
 		int choix = sc.nextInt();
@@ -119,10 +121,13 @@ public class Lanceur {
 				case 3:  
 					effectuerVirement(conseiller);   //Effectuer un virement 
 					break;
-				case 4: 
-					suppressionCompte(conseiller);    //supprimer un compte
+				case 4:  
+					effectuerPlacement(conseiller);   //Effectuer un virement 
 					break;
 				case 5: 
+					suppressionCompte(conseiller);    //supprimer un compte
+					break;
+				case 6: 
 					listerComptes(conseiller); //lister comptes
 					break;
 				case 0: //revenir au menu principal
@@ -169,8 +174,9 @@ public class Lanceur {
 		System.out.println("#                      1. CREER UN COMPTE                     #");
 		System.out.println("#                      2. MODIFIER UN COMPTE                  #");
 		System.out.println("#                      3. EFFECTUER VIREMENT                  #");
-		System.out.println("#                      4. SUPPRIMER UN COMPTE                 #");
-		System.out.println("#                      5. LISTER DES COMPTES                  #");
+		System.out.println("#                      4. EFFECTUER PLACEMENT (CLIENT FORTUNE)#");
+		System.out.println("#                      5. SUPPRIMER UN COMPTE                 #");
+		System.out.println("#                      6. LISTER DES COMPTES                  #");
 		System.out.println("#                      0. REVENIR AU MENU                     #");
 		System.out.println("#                                                             #");
 		System.out.println("###############################################################");
@@ -440,6 +446,24 @@ public class Lanceur {
 		listerComptes(service.lireClient(idClient), conseiller);
 	}
 	
+	
+	public static void effectuerPlacement(Conseiller conseiller) {
+		
+		//listerComptes(conseiller);
+		for (Client client : conseiller.getClients()) {
+			
+			
+			try {
+				service.verifierPlacement(client, conseiller);
+			} catch (VerifPlacementException e) {
+				System.out.println(client);
+				System.out.println(e.getMessage());
+			}
+			
+		}
+		
+				
+	}
 	
 }
 

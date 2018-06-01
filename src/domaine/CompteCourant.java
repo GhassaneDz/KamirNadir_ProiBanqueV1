@@ -19,13 +19,13 @@ public class CompteCourant extends Compte {
 	}
 
 	
+	
 
 
 	public CompteCourant(double solde, Date dateOuverture) {
 		super(solde, dateOuverture);
 	}
-
-
+	
 
 	public CompteCourant(int idCompte, double solde, Date dateOuverture, double decouvert) {
 		super(idCompte, solde, dateOuverture);

@@ -12,8 +12,8 @@ import domaine.Conseiller;
 
 public class ServiceImpl implements Iservice {
 
-	public static int idClient = 0;
-	public static int idCompte = 0;
+	public static int idCl = 0;
+	public static int idCom = 0;
 	
 	private List<Compte> comptes = new ArrayList<Compte>();
 	private List<Client> clients = new ArrayList<Client>();
@@ -24,26 +24,34 @@ public class ServiceImpl implements Iservice {
 
 	@Override
 	public void creerCompte(Compte compte) {
-		compte.setIdCompte(idCompte++);
+		compte.setIdCompte(idCom++);
 		comptes.add(compte);
 	}
 
 	@Override
 	public Compte lireCompte(int idCompte) {
-
-		return comptes.get(idCompte);
+		
+		for (Compte compte : comptes) {
+			if (compte.getIdCompte() == idCompte)
+				return compte;
+		}
+		return null;
 
 	}
 
 	@Override
 	public void modifierCompte(Compte compte) {
-		int index = compte.getIdCompte();
+		int index = 0;
+		for (int i = 0; i <= comptes.size(); i++) {
+			if (comptes.get(i).getIdCompte() == compte.getIdCompte()) {
+				index = i;
+			}
+		}
 		comptes.set(index, compte);
 	}
 
 	@Override
 	public void supprimerCompte(Compte compte) {
-
 		comptes.remove(compte);
 	}
 
@@ -54,19 +62,31 @@ public class ServiceImpl implements Iservice {
 	}
 
 	@Override
-	public boolean creerClient(Client client) {
-		client.setIdClient(idClient++);
-		return clients.add(client);
+	public void creerClient(Client client) {
+		client.setIdClient(idCl++);
+		clients.add(client);
 	}
 
 	@Override
 	public Client lireClient(int idClient) {
-		return clients.get(idClient);
+		
+		for (Client client : clients) {
+			if (client.getIdClient() == idClient)
+				return client;
+		}
+		return null;
 	}
 
 	@Override
 	public void modifierClient(Client client) {
-		clients.set(client.getIdClient(), client);
+		
+		int index = 0;
+		for (int i = 0; i <= clients.size(); i++) {
+			if (clients.get(i).getIdClient() == client.getIdClient()) {
+				index = i;
+			}
+		}
+		clients.set(index, client);
 
 	}
 
@@ -117,14 +137,22 @@ public class ServiceImpl implements Iservice {
 	
 	
 	@Override 
-	public void supprimerMonClient(int id, Conseiller conseiller) {
-		Client client = clients.get(id);
+	public void supprimerMonClient(int idClient, Conseiller conseiller) {
 		
-		conseiller.getClients().remove(id); //supprimmer client de la liste des clients du conseiller
-		this.supprimerClient(client);           //supprimer client de la liste des clients de l'agence
+
+		Client clientb = lireClient(idClient);
+
+		int index = conseiller.getClients().indexOf(clientb);
+		Client clientc = conseiller.getClients().get(index);
+
+
+		conseiller.getClients().remove(clientc); //supprimmer client de la liste des clients du conseiller
 		
-		if(client.getComptes().size() !=0)
-			for (Compte compte : client.getComptes()) //supprimer tous les comptes du client
+
+		this.supprimerClient(clientb);           //supprimer client de la liste des clients de l'agence
+		
+		if(clientb.getComptes().size() !=0)
+			for (Compte compte : clientb.getComptes()) //supprimer tous les comptes du client
 				this.supprimerCompte(compte);
 				
 	}
@@ -161,8 +189,8 @@ public class ServiceImpl implements Iservice {
 	
 	
 	@Override 
-	public void supprimerCompteClient(int id, Conseiller conseiller) {
-		Compte compte = comptes.get(id);
+	public void supprimerCompteClient(int idCompte, Conseiller conseiller) {
+		Compte compte = lireCompte(idCompte);
 		Client client = compte.getClient();
 		this.supprimerCompte(compte);
 		client.getComptes().remove(compte);
@@ -256,7 +284,16 @@ public class ServiceImpl implements Iservice {
 			}
 			
 		}
-
+	}
+	
+	public void verifierPlacement(Client client, Conseiller conseiller) throws VerifPlacementException {
+		
+		for (Compte compte : client.getComptes()) {
+			if (compte instanceof CompteCourant) {
+				if (compte.getSolde() >= 500000) throw new VerifPlacementException(" Ce client est elligible pour un placement");
+			}
+		}
+		
 	}
 
 }

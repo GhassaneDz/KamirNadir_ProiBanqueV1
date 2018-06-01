@@ -21,7 +21,7 @@ public interface Iservice {
 	
 	// ---------  CRUD Client ---------
 	
-	public boolean creerClient (Client client) ;
+	public void creerClient (Client client) ;
 	public Client lireClient (int idClient) ;
 	public void modifierClient (Client client) ;
 	public void supprimerClient (Client client) ;
@@ -52,6 +52,7 @@ public interface Iservice {
 	public void attribuerCarte(Client client, CarteBancaire carte) ;
 	public void effectuerVirement(Compte compteDebiteur, Compte compteCrediteur, double montant);
 	public void effectuerVirement(Compte compteDebiteur, double montant) throws SoldeInsuffisantException;
+	public void verifierPlacement(Client client, Conseiller conseiller) throws VerifPlacementException;
 	
 	
 	

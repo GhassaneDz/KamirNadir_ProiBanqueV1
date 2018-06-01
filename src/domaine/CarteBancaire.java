@@ -1,7 +1,7 @@
 package domaine;
 
 /**
- * 
+ * classe représentant carte bancaire
  * @author Adminl
  * @version 1.0
  *
@@ -17,21 +17,29 @@ public abstract class CarteBancaire {
 	//----------   Constructeurs ----------
 	
 	/**
-	 * 
+	 * constructeur sans paramètre
 	 */
 	public CarteBancaire() {
 		super();
 	}
 	
 	
-
+	/**
+	 * constructeur avec paramètres
+	 * @param idCarte identifiant de la carte
+	 */
 	public CarteBancaire(int idCarte) {
 		super();
 		this.idCarte = idCarte;
 	}
 
 
-
+	/**
+	 * constructeur avec paramètres
+	 * @param idCarte identifiant de la carte
+	 * @param codeCarte code de la carte
+	 * @param dateExpiration date d'expiration de la carte
+	 */
 	public CarteBancaire(int idCarte, int codeCarte, String dateExpiration) {
 		super();
 		this.idCarte = idCarte;
@@ -48,6 +56,7 @@ public abstract class CarteBancaire {
 	public int getIdCarte() {
 		return idCarte;
 	}
+	
 
 	/**
 	 * @return the proprietaire
