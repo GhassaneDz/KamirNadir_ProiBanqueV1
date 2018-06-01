@@ -11,7 +11,6 @@ public abstract class Personne {
 
 	public Personne() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Personne(String nom, String prenom, String adresse, String codePostal, String ville) {
@@ -94,8 +93,12 @@ public abstract class Personne {
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return " nom=" + nom + ", prenom=" + prenom;
+	}
+		
 
 
 }

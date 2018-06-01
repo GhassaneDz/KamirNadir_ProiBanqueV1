@@ -1,5 +1,7 @@
 package domaine;
 
+import java.util.Date;
+
 public class CompteEpargne extends Compte {
 	
 	private double taux = 3 ;
@@ -16,9 +18,15 @@ public class CompteEpargne extends Compte {
 		super(idCompte);
 	}
 
+	
+
+	public CompteEpargne(double solde, Date dateOuverture) {
+		super(solde, dateOuverture);
+	}
 
 
-	public CompteEpargne(int idCompte, double solde, String dateOuverture, double taux) {
+
+	public CompteEpargne(int idCompte, double solde, Date dateOuverture, double taux) {
 		super(idCompte, solde, dateOuverture);
 		this.taux = taux;
 	}
@@ -37,6 +45,14 @@ public class CompteEpargne extends Compte {
 	 */
 	public void setTaux(double taux) {
 		this.taux = taux;
+	}
+
+
+
+	@Override
+	public String toString() {
+
+		return "CompteEpargne " + super.toString() + ", taux=" + taux + "%]";
 	} 
 	
 	

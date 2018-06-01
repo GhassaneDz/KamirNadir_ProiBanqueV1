@@ -1,10 +1,12 @@
 package domaine;
 
+import java.util.Date;
+
 public abstract class Compte {
 	
 	protected int idCompte ;
 	protected double solde ; 
-	protected String dateOuverture ;
+	protected Date dateOuverture ;
 	private Client client ; 
 	
 	//----------   Constructeurs ----------
@@ -20,9 +22,13 @@ public abstract class Compte {
 		this.idCompte = idCompte;
 	}
 
+	public Compte(double solde, Date dateOuverture) {
+		super();
+		this.solde = solde;
+		this.dateOuverture = dateOuverture;
+	}
 
-
-	public Compte(int idCompte, double solde, String dateOuverture) {
+	public Compte(int idCompte, double solde, Date dateOuverture) {
 		super();
 		this.idCompte = idCompte;
 		this.solde = solde;
@@ -62,14 +68,14 @@ public abstract class Compte {
 	/**
 	 * @return the dateOuverture
 	 */
-	public String getDateOuverture() {
+	public Date getDateOuverture() {
 		return dateOuverture;
 	}
 
 	/**
 	 * @param dateOuverture the dateOuverture to set
 	 */
-	public void setDateOuverture(String dateOuverture) {
+	public void setDateOuverture(Date dateOuverture) {
 		this.dateOuverture = dateOuverture;
 	}
 
@@ -85,10 +91,13 @@ public abstract class Compte {
 	 */
 	public void setClient(Client client) {
 		this.client = client;
-	} 
-	
-	// 
-	
-	
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "[idCompte=" + idCompte + ", solde=" + solde + ", dateOuverture=" + dateOuverture;
+	} 	
 
 }

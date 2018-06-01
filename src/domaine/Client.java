@@ -5,7 +5,8 @@ import java.util.List;
 
 public class Client extends Personne {
 
-	private int idClient ; 
+	private int idClient ;
+	private String profession;
 	private String typeClient;
 	private Conseiller conseiller;
 	List<Compte> comptes = new ArrayList <Compte>();
@@ -17,25 +18,22 @@ public class Client extends Personne {
 		super();
 	}
 	
+	
+	public Client(String nom, String prenom, String adresse, String codePostal, String ville, String profession, String typeClient) {
+		super(nom, prenom, adresse, codePostal, ville);
+		this.typeClient = typeClient;
+		this.profession = profession;
+	}
 
-	public Client(int idClient, String nom, String prenom, String adresse, String codePostal, String ville, String typeClient) {
+	public Client(int idClient, String nom, String prenom, String adresse, String codePostal, String ville, String profession, String typeClient) {
 		super(nom, prenom, adresse, codePostal, ville);
 		this.typeClient = typeClient;
 		this.idClient = idClient;
+		this.profession = profession;
 	}
 	
 	//-------- Getters & setters  ------------------------------
 	
-	
-	
-
-	/**
-	 * @return the typeClient
-	 */
-	public String getTypeClient() {
-		return typeClient;
-	}
-
 	/**
 	 * @return the idClient
 	 */
@@ -49,6 +47,23 @@ public class Client extends Personne {
 	public void setIdClient(int idClient) {
 		this.idClient = idClient;
 	}
+
+	public String getProfession() {
+		return profession;
+	}
+
+
+	public void setProfession(String profession) {
+		this.profession = profession;
+	}
+	
+	/**
+	 * @return the typeClient
+	 */
+	public String getTypeClient() {
+		return typeClient;
+	}
+
 
 	/**
 	 * @param typeClient the typeClient to set
@@ -104,9 +119,11 @@ public class Client extends Personne {
 	 */
 	@Override
 	public String toString() {
-		return "Client [idClient=" + idClient + ", typeClient=" + typeClient + ", conseiller=" + conseiller
-				+ ", comptes=" + comptes + ", carte=" + carte + "]";
+		return "Client [idClient=" + idClient + ","+ super.toString() +", typeClient=" + typeClient+"]";
 	}
+
+
+
 	
 	
 	
