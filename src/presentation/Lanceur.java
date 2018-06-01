@@ -90,6 +90,14 @@ public class Lanceur {
 		service.creerCompteMonClient(compteCourant2, clientEnt);
 		service.creerCompteMonClient(compteCourant3, clientSimp);
 		
+		Compte compteEpargnef = new CompteEpargne(60000, new Date()) ; 
+		Compte compteEpargne2 = new CompteEpargne(1500, new Date() );
+		Compte compteEpargne3 = new CompteEpargne(150, new Date()) ;
+		
+		service.creerCompteMonClient(compteEpargnef, clientF);
+		service.creerCompteMonClient(compteEpargne2, clientEnt);
+		service.creerCompteMonClient(compteEpargne3, clientSimp);
+		
 		
 		MenuPrincipal();		
 		int choix = sc.nextInt();
