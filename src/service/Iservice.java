@@ -51,7 +51,7 @@ public interface Iservice {
 	public void attribuerConseiller(Client client, Conseiller conseiller) ;
 	public void attribuerCarte(Client client, CarteBancaire carte) ;
 	public void effectuerVirement(Compte compteDebiteur, Compte compteCrediteur, double montant);
-	public void effectuerVirement(Compte compteDebiteur, double montant);
+	public void effectuerVirement(Compte compteDebiteur, double montant) throws SoldeInsuffisantException;
 	
 	
 	

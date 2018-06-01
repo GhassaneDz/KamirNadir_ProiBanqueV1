@@ -18,6 +18,7 @@ import domaine.VisaPremier;
 import service.Iservice;
 import service.NbClientsGeresException;
 import service.ServiceImpl;
+import service.SoldeInsuffisantException;
 
 public class Lanceur {
 	
@@ -116,7 +117,7 @@ public class Lanceur {
 					modificationCompte(conseiller);   //modifier un compte 
 					break;
 				case 3:  
-					//effectuerVirement(conseiller);   //Effectuer un virement 
+					effectuerVirement(conseiller);   //Effectuer un virement 
 					break;
 				case 4: 
 					suppressionCompte(conseiller);    //supprimer un compte
@@ -400,6 +401,7 @@ public class Lanceur {
 		System.out.println("*************************");
 		System.out.println(" Liste des comptes :");
 		System.out.println("*************************");
+		System.out.println("Client: " + client.getIdClient());
 		Stream<Compte> str = comptesDeMonClient.stream();		
 		str.forEach(System.out::println);
 		return comptesDeMonClient;
@@ -419,11 +421,23 @@ public class Lanceur {
 	}
 	
 	public static void effectuerVirement(Conseiller conseiller) {
-		System.out.println("----  Saisir l'identifient du client ----");
-		int idClient = sc.nextInt() ; 
-		List<Client> mesClients = conseiller.getClients();
-		//mesClients.get(index).
-		
+		listerClients(conseiller);
+		System.out.println("----  Saisir l'identifient du client pour lequel vous voulez faire un virement ----");
+		int idClient = sc.nextInt() ;
+		System.out.println("----  Saisir le montant de votre virement ----");
+		double montant = sc.nextDouble();
+		List<Compte> mesComptes = listerComptes(service.lireClient(idClient), conseiller);
+		System.out.println("----  Saisir l'identifient du compte sur lequel faire le virement ----");
+		int idCompte = sc.nextInt() ;
+		try {
+			service.effectuerVirement(mesComptes.get(idCompte), montant);
+		} catch (SoldeInsuffisantException e) {
+			// TODO Auto-generated catch block
+			System.out.println("*************************");
+			System.out.println(e.getMessage() + " !!!!!");
+			System.out.println("*************************");
+		}	
+		listerComptes(service.lireClient(idClient), conseiller);
 	}
 	
 	
