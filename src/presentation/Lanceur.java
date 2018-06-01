@@ -1,3 +1,4 @@
+
 package presentation;
 
 import java.util.ArrayList;
@@ -87,7 +88,10 @@ public class Lanceur {
 						suppressionClient(conseiller); //supprimer un client
 					break;
 					case 4: 
-						listerClients(conseiller);   //lister les clients
+						listerClient(conseiller);   //lister un client
+					break;
+					case 5: 
+						listerClients(conseiller);   //lister un client
 					break;
 					case 0: // revenir au menu principal
 						MenuPrincipal();
@@ -111,10 +115,13 @@ public class Lanceur {
 				case 2:  
 					modificationCompte(conseiller);   //modifier un compte 
 					break;
-				case 3: 
-					suppressionCompte(conseiller);    //supprimer un compte
+				case 3:  
+					//effectuerVirement(conseiller);   //Effectuer un virement 
 					break;
 				case 4: 
+					suppressionCompte(conseiller);    //supprimer un compte
+					break;
+				case 5: 
 					listerComptes(conseiller); //lister comptes
 					break;
 				case 0: //revenir au menu principal
@@ -179,7 +186,8 @@ public class Lanceur {
 		System.out.println("#                      1. CREER UN CLIENT                     #");
 		System.out.println("#                      2. MODIFIER UN CLIENT                  #");
 		System.out.println("#                      3. SUPPRIMER UN CLIENT                 #");
-		System.out.println("#                      4. LISTER DES CLIENTS                  #");
+		System.out.println("#                      4. LISTER UN CLIENT                    #");
+		System.out.println("#                      5. LISTER TOUT LES CLIENTS             #");
 		System.out.println("#                      0. REVENIR AU MENU                     #");
 		System.out.println("#                                                             #");
 		System.out.println("###############################################################");
@@ -194,6 +202,7 @@ public class Lanceur {
 		System.out.print(" nom client:");
 		sc.nextLine();
 		String nom = sc.nextLine();
+		
 		System.out.print(" prenom client:");
 		String prenom = sc.nextLine();
 		System.out.print(" adresse client :");
@@ -204,8 +213,13 @@ public class Lanceur {
 		String ville = sc.nextLine();
 		System.out.print(" profession :");
 		String  profession = sc.nextLine();
-		System.out.print(" type client :");
-		String  typeClient = sc.nextLine();
+		System.out.print(" type client (1. Particulier/2. Entreprise) :");
+		int typeC = sc.nextInt();
+		String  typeClient = " " ;
+		if (typeC == 1)
+		   typeClient = "Particulier";
+		else if (typeC == 2)
+		   typeClient = "Entreprise";
 		System.out.println();
 		System.out.println();
 		
@@ -224,11 +238,62 @@ public class Lanceur {
 	
 	//modifier un client par un conseiller
 	public static void modificationClient(Conseiller conseiller) {
+		listerClients(conseiller);
+		System.out.println();
+		System.out.println("--------  Saisir l'ID du client a modifier");
+		int id = sc.nextInt() ; 
+		Client client = conseiller.getClients().get(id);
+		
+		System.out.println("--------  Menu des modifications ---------- ");
+		System.out.println("           1. modification du nom");
+		System.out.println("           2. modification du prenom");
+		System.out.println("           3. modification de l'adresse");
+		System.out.println("           4. modification de la ville");
+		System.out.println("           5. modification du code postal");
+		
+		int choix = sc.nextInt() ;
+		String donneeC = " "; 
+		switch (choix) {
+		  case (1) : System.out.print("Veuillez saisir le nouveau nom: "); 
+		             sc.nextLine();
+		             donneeC = sc.nextLine();
+		             client.setNom(donneeC); 
+		             service.modifierClient(client); 
+		             listerClients(conseiller) ;
+		             break; 
+		  case (2) : System.out.print("Veuillez saisir le nouveau prenom: ");
+		             sc.nextLine();
+		             donneeC = sc.nextLine(); 
+                     client.setPrenom(donneeC); 
+                     service.modifierClient(client);
+                     listerClients(conseiller) ;
+                     break; 
+		  case (3) : System.out.print("Veuillez saisir la nouvelle adresse: "); 
+		             sc.nextLine();
+		             donneeC = sc.nextLine(); 
+                     client.setAdresse(donneeC); 
+                     service.modifierClient(client); 
+                     break; 
+		  case (4) : System.out.print("Veuillez saisir la nouvelle ville: ");
+		             sc.nextLine();
+		             donneeC = sc.nextLine(); 
+                     client.setVille(donneeC); 
+                     service.modifierClient(client); 
+                     break; 
+		  case (5) : System.out.print("Veuillez saisir le nouveau code postal: ");
+		             sc.nextLine();
+		             donneeC = sc.nextLine(); 
+                     client.setCodePostal(donneeC); 
+                     service.modifierClient(client); 
+                     break; 
+		  }
+		
 		
 	}
 	
 	//supprimer un client par un conseiller
 	public static void suppressionClient(Conseiller conseiller) {
+
 		List<Client> mesClients = listerClients(conseiller);
 		System.out.println();
 		if(mesClients.size() == 0) {
@@ -239,7 +304,6 @@ public class Lanceur {
 			service.supprimerMonClient(idClient, conseiller);
 			listerClients(conseiller);
 		}
-
 	}
 	
 	
@@ -252,6 +316,10 @@ public class Lanceur {
 		Stream<Client> str = mesClients.stream();		
 		str.forEach(System.out::println);
 		return mesClients;
+	}
+	
+	public static void listerClient(Conseiller conseiller) {
+		
 	}
 
 	
@@ -351,5 +419,14 @@ public class Lanceur {
 		
 	}
 	
+	public static void effectuerVirement(Conseiller conseiller) {
+		System.out.println("----  Saisir l'identifient du client ----");
+		int idClient = sc.nextInt() ; 
+		List<Client> mesClients = conseiller.getClients();
+		//mesClients.get(index).
+		
+	}
+	
 	
 }
+

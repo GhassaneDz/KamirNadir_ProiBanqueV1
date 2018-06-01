@@ -1,5 +1,12 @@
 package domaine;
 
+/**
+ * Classe permettant de symboliser les personnes physiques 
+ * @author Nadir Boutra 
+ * @version 1.0
+ *
+ */
+
 public abstract class Personne {
 
 
@@ -25,28 +32,28 @@ public abstract class Personne {
 
 
 	/**
-	 * @return the nom
+	 * @return le nom de la personne
 	 */
 	public String getNom() {
 		return nom;
 	}
 
 	/**
-	 * @param nom the nom to set
+	 * @param nom le nom de la personne a modifier
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
 	/**
-	 * @return the prenom
+	 * @return le prenom de la personne
 	 */
 	public String getPrenom() {
 		return prenom;
 	}
 
 	/**
-	 * @param prenom the prenom to set
+	 * @param prenom le prenom de la personne a modifier
 	 */
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
@@ -96,7 +103,7 @@ public abstract class Personne {
 
 	@Override
 	public String toString() {
-		return " nom=" + nom + ", prenom=" + prenom;
+		return " Nom=" + nom + ", Prenom=" + prenom + ", Adresse=" + adresse + ", Ville=" + ville + ", Code Postal=" + codePostal;
 	}
 		
 
