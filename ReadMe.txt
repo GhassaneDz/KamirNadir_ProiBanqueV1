@@ -15,9 +15,6 @@ I. Problématique
    compte à compte ainsi que réaliser des simulations de crédits immobiliers ou de consommation. Les clients (particuliers uniquement) fortunés peuvent bénéficier d'un système de placement en bourse. 
    L'application propose également de faire un audit de chaque clients d'une agence.
 
-   L'application doit disposer d'un système d'authentification pour attribuer des droits différents à l'utilisateur, par exemple les gérants peuvent faire la gestion de 
-   tous les clients de leur agence tandis que les conseillers ne peuvent gérer que leurs propres clients.
-
 ---------------------
 II. Fonctionnalités
 ---------------------
@@ -27,26 +24,31 @@ II. Fonctionnalités
 1) L'application est centrée autour du conseiller (c'est lui qui effectue toutes les opétations)
 
 2) Gestion Clients : 
+
    - Creation d'un nouveau client : Renseignement des informations du client sous forme interactif 
 
    - Modifier un client 
 
    - Supprimer un client 
 
-   - Lister un client en particulier 
+   - Lister un client en particulier : "fonctionnalitée non implementée !!"  
 
    - Lister tous les clients gérés par un conseiller
  
 3) Gestion Comptes :
  
-   - Creation d'un compte : Renseignement des informations du compte sous forme interactif 
+   - Creation d'un compte : Renseignement des informations du compte sous forme interactif  
+
          * Option 1 : Creation d'un compte courant (par défaut le decouvert est de 1000 euros)
          * Option 2 : Creation d'un compte epargne (par defaut le taux est de 3 %)
-
+         * Remarque : Le systeme ne gere pas le cas d'ajout d'un compte pour un client qui possede deja un compte du meme type 
    - Modifier un compte : Fonctionnalitée non implementée
  
    - Effectuer un virement: 
-         
+
+         * Option 1 (Virement interne) : Effectué pour meme client à partir d'un compte courant vers un compte epargne ou inversement
+                         
+         * Option 2 (Virement externe) : Effectué d'un compte x d'un client A vers un compte y d'un client B d'une meme agence  
   
    - Effectuer un placement : Cette option est reservée pour les clients fortunés. Lorsque le conseiller liste tout les clients à partir du menu de gestion des clients, L'application lui indique quels sont 
                               les clients éligibles pour un placement 
@@ -58,16 +60,16 @@ II. Installation
 ---------------------
 
    - Se placer dans le ficher .../Livrable/
-   - Lancer la commande 
+   - Lancer la commande java -jar proxiBanque.jar  
 
 --------------------------------------
 IV. Scénario classique d'utilisation
 --------------------------------------
 
 
-   - Au demarrage de l'application 3 clients sont présents dans le systeme: 
+   - Au demarrage de l'application, 3 clients sont présents dans le systeme: 
 
-      * Client 1 : 
+      * Client 1 : Possède un compte courant et un compte epargne 
 
             Nom         : David 
             Prenom      : Messir
@@ -77,7 +79,7 @@ IV. Scénario classique d'utilisation
             Fonction    : PDG
             Statut      : Particulier
  
-      * Client 2 :  
+      * Client 2 : Possède un compte courant et un compte epargne   
 
             Nom         : MTS 
             Adresse     : Lourcine
@@ -85,7 +87,7 @@ IV. Scénario classique d'utilisation
             Ville       : Paris
             Statut      : Entreprise
 
-      * Client 3 :  
+      * Client 3 : Possède un compte courant et un compte epargne   
 
             Nom         : boutrin
             Prenom      : Nadir 
@@ -107,8 +109,8 @@ IV. Scénario classique d'utilisation
       * "Effectuer virement" : 
                 * Option 1 (Virement interne) : Effectué pour meme client à partir d'un compte courant vers un compte epargne ou inversement
                        Deroulé de l'opération : 
-                
-                 
+                       l'application demande l'identient du client débiteur et créditeur 
+                       L'application demande le montant du virement 
                 * Option 2 (Virement externe) : Effectué d'un compte x d'un client A vers un compte x d'un client B 
                        Deroulé de l'operation : 
       * Effectuer un placement : Au demarrage de l'application, le client1
