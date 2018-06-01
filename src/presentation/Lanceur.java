@@ -398,6 +398,7 @@ public class Lanceur {
 	//afficher une liste de compte des clients du conseiller	
 	public static List<Compte> listerComptes(Client client, Conseiller conseiller) {
 		List<Compte> comptesDeMonClient = client.getComptes();
+		System.out.println("comptes de mes clients :" + comptesDeMonClient);
 		System.out.println("*************************");
 		System.out.println(" Liste des comptes :");
 		System.out.println("*************************");
