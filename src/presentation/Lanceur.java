@@ -116,7 +116,7 @@ public class Lanceur {
 					modificationCompte(conseiller);   //modifier un compte 
 					break;
 				case 3:  
-					//effectuerVirement(conseiller);   //Effectuer un virement 
+					effectuerVirement(conseiller);   //Effectuer un virement 
 					break;
 				case 4: 
 					suppressionCompte(conseiller);    //supprimer un compte
@@ -167,8 +167,9 @@ public class Lanceur {
 		System.out.println("#                                                             #");
 		System.out.println("#                      1. CREER UN COMPTE                     #");
 		System.out.println("#                      2. MODIFIER UN COMPTE                  #");
-		System.out.println("#                      3. SUPPRIMER UN COMPTE                 #");
-		System.out.println("#                      4. LISTER DES COMPTES                  #");
+		System.out.println("#                      3. EFFECTUER VIREMENT                  #");
+		System.out.println("#                      4. SUPPRIMER UN COMPTE                 #");
+		System.out.println("#                      5. LISTER DES COMPTES                  #");
 		System.out.println("#                      0. REVENIR AU MENU                     #");
 		System.out.println("#                                                             #");
 		System.out.println("###############################################################");
@@ -420,11 +421,10 @@ public class Lanceur {
 	}
 	
 	public static void effectuerVirement(Conseiller conseiller) {
+		listerClients(conseiller);
 		System.out.println("----  Saisir l'identifient du client ----");
-		int idClient = sc.nextInt() ; 
-		List<Client> mesClients = conseiller.getClients();
-		//mesClients.get(index).
-		
+		int idClient = sc.nextInt() ;
+		List<Compte> mesComptes = listerComptes(service.lireClient(idClient), conseiller); 	
 	}
 	
 	
