@@ -1,7 +1,9 @@
 package domaine;
 
 /**
- * classe représentant carte bancaire
+
+ * Classe permettant de symboliser les objets de type CarteBancaire
+>>>>>>> branch 'master' of https://github.com/POEI2018/KamirNadir_ProiBanqueV1.git
  * @author Adminl
  * @version 1.0
  *
@@ -15,6 +17,9 @@ public abstract class CarteBancaire {
 	private Client proprietaire ; 
 	
 	//----------   Constructeurs ----------
+	/**
+	 * Constrcuteur par defaut sans arguments de la classe Personne
+	 */
 	
 	/**
 	 * constructeur sans paramètre
@@ -23,11 +28,13 @@ public abstract class CarteBancaire {
 		super();
 	}
 	
-	
+
 	/**
-	 * constructeur avec paramètres
-	 * @param idCarte identifiant de la carte
+	 * Constructeur permettant d'initiliser l'attribut idCarte
+	 * @param int
 	 */
+
+
 	public CarteBancaire(int idCarte) {
 		super();
 		this.idCarte = idCarte;
@@ -35,11 +42,14 @@ public abstract class CarteBancaire {
 
 
 	/**
-	 * constructeur avec paramètres
-	 * @param idCarte identifiant de la carte
-	 * @param codeCarte code de la carte
-	 * @param dateExpiration date d'expiration de la carte
+
+	 * Constructeur permettant d'initiliser les attributs : idCarte, codeCarte et dateExpiration 
+	 * @param idCarte
+	 * @param codeCarte
+	 * @param dateExpiration
 	 */
+
+
 	public CarteBancaire(int idCarte, int codeCarte, String dateExpiration) {
 		super();
 		this.idCarte = idCarte;
@@ -51,7 +61,8 @@ public abstract class CarteBancaire {
 
 	
 	/**
-	 * @return the idCarte
+	 * Methode permettant d'acceder a l'attribut idCarte de la classe CarteBancaire
+	 * @return int
 	 */
 	public int getIdCarte() {
 		return idCarte;
@@ -59,49 +70,56 @@ public abstract class CarteBancaire {
 	
 
 	/**
-	 * @return the proprietaire
+	 *  Methode permettant d'acceder a l'attribut client de la classe CarteBancaire
+	 * @return Client
 	 */
 	public Client getProprietaire() {
 		return proprietaire;
 	}
 
 	/**
-	 * @param proprietaire the proprietaire to set
+	 *  Methode permettant de modifier l'attribut proprietaire de la classe CarteBancaire
+	 * @param Client
 	 */
 	public void setProprietaire(Client proprietaire) {
 		this.proprietaire = proprietaire;
 	}
 
 	/**
-	 * @param idCarte the idCarte to set
+	 *  Methode permettant de modifier l'attribut idCarte de la classe CarteBancaire
+	 * @param int
 	 */
 	public void setIdCarte(int idCarte) {
 		this.idCarte = idCarte;
 	}
 
 	/**
-	 * @return the codeCarte
+	 *  Methode permettant d'acceder a l'attribut codeCarte de la classe CarteBancaire
+	 * @return int
 	 */
 	public int getCodeCarte() {
 		return codeCarte;
 	}
 
 	/**
-	 * @param codeCarte the codeCarte to set
+	 *  Methode permettant de modifier l'attribut codeCarte de la classe CarteBancaire
+	 * @param int
 	 */
 	public void setCodeCarte(int codeCarte) {
 		this.codeCarte = codeCarte;
 	}
 
 	/**
-	 * @return the dateExpiration
+	 *  Methode permettant d'acceder a l'attribut dateExpiration de la classe CarteBancaire
+	 * @return String
 	 */
 	public String getDateExpiration() {
 		return dateExpiration;
 	}
 
 	/**
-	 * @param dateExpiration the dateExpiration to set
+	 *  Methode permettant de modifier l'attribut dateExpiration de la classe CarteBancaire
+	 * @param String
 	 */
 	public void setDateExpiration(String dateExpiration) {
 		this.dateExpiration = dateExpiration;

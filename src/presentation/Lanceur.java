@@ -2,6 +2,7 @@
 package presentation;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -21,13 +22,36 @@ import service.ServiceImpl;
 import service.SoldeInsuffisantException;
 import service.VerifPlacementException;
 
+
+/**
+ * 
+ * Classe permettant de lancer l'utilisation de l'application ProxiBanque
+ * 
+ * @author Nadir Boutra && Kamir El Sisi
+ * @version 1.0
+ *  
+ * 
+ *
+ */
+
+
 public class Lanceur {
 	
 	
 	static Iservice service = new ServiceImpl() ;
 	static Scanner sc = new Scanner(System.in);
 	
+	/**
+	 * Constructeur par défaut sans arguments de la classe Lanceur
+	 */
+	public Lanceur () {
+		super() ;
+	}
 	
+	/**
+	 * Methode principale d'execution de l'application ProxiBanque
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 
@@ -149,6 +173,10 @@ public class Lanceur {
 		
 	}
 	
+	/**
+	 *  Methode permettant d'afficher le menu d'entrée de l'application Proxibanque
+	 */
+	
 	public static void MenuPrincipal() {
 		
 		System.out.println("###############################################################");
@@ -164,6 +192,10 @@ public class Lanceur {
 		System.out.print("  VOTRE SELECTION <0 - 2> ? :");
 		
 	}
+	
+	/**
+	 * Methode permettant d'afficher le sous-menu de gestion des comptes
+	 */
 	
 	public static void MenuGestionCompte() {
 		
@@ -185,6 +217,10 @@ public class Lanceur {
 		
 	}
 	
+	/**
+	 * Methode permettant d'afficher le sous-menu de gestion des clients
+	 */
+	
 	public static void MenuGestionPersonne() {
 		
 		System.out.println("###############################################################");
@@ -204,7 +240,10 @@ public class Lanceur {
 		
 	}
 	
-	
+	/**
+	 * Methode permettant de creer un client sur demande du conseiller via le menu de l'application ProxiBanque
+	 * @param Conseiller 
+	 */
 	//creer un client par un conseiller
 	public static void creationClient(Conseiller conseiller) {
 		System.out.print(" nom client:");
@@ -243,6 +282,11 @@ public class Lanceur {
 		}
 		
 	}
+	
+	/**
+	 * Methode permettant de modifier les informations d'un client sur demande du conseiller via le menu de l'application ProxiBanque
+	 * @param Conseiller
+	 */
 	
 	//modifier un client par un conseiller
 	public static void modificationClient(Conseiller conseiller) {
@@ -299,6 +343,11 @@ public class Lanceur {
 		
 	}
 	
+	/**
+	 * Methode permettant de supprimer un client sur demande du conseiller via le menu de l'application ProxiBanque
+	 * @param Conseiller
+	 */
+	
 	//supprimer un client par un conseiller
 	public static void suppressionClient(Conseiller conseiller) {
 
@@ -315,6 +364,11 @@ public class Lanceur {
 	}
 	
 	
+	/**
+	 * Methode permettant de lister tout les clients de l'agence sur demande du conseiller via le menu de l'application ProxiBanque
+	 * @param Conseiller
+	 * @return List <Client>
+	 */
 	//obtenir la liste des clients gérés par un conseiller
 	public static List<Client> listerClients(Conseiller conseiller) {
 		List<Client> mesClients = conseiller.getClients();
@@ -326,11 +380,19 @@ public class Lanceur {
 		return mesClients;
 	}
 	
+	/**
+	 * Methode permettant de lister un client en particulier sur demande du conseiller via le menu de l'application ProxiBanque
+	 * @param Conseiller
+	 */
 	public static void listerClient(Conseiller conseiller) {
 		
 	}
 
-	
+	/**
+	 * Methode permettant de creer un compte pour un client donné (courant ou epargne) avec précision du solde a créditer pour ce compte 
+	 * sur demande du conseiller via le menu de l'application ProxiBanque
+	 * @param Conseiller
+	 */
 	public static void creationCompte(Conseiller conseiller) {	
 		
 		List<Client> mesClients = listerClients(conseiller);
@@ -359,7 +421,11 @@ public class Lanceur {
 				
 	}
 	
-	
+	/**
+	 * Methode permettant de modifier les informations relatives à un compte donné 
+	 * sur demande du conseiller via le sous-menu de gestion des comptes de l'application ProxiBanque
+	 * @param Conseiller
+	 */
 	//modifier un compte par un conseiller
 	public static void modificationCompte(Conseiller conseiller) {
 		
@@ -368,6 +434,8 @@ public class Lanceur {
 	
 	//supprimer un compte par un conseiller
 	/**
+	 * Methode permettant de supprimer un compte donné
+	 * sur demande du conseiller via le sous-menu de gestion des comptes de l'application ProxiBanque
 	 * @param conseiller
 	 */
 	public static void suppressionCompte(Conseiller conseiller) {
@@ -400,7 +468,13 @@ public class Lanceur {
 	}
 	
 	
-	
+	/**
+	 * methode permettant de lister tout les comptes que possède un client donné
+	 * sur demande du conseiller via le sous-menu de gestion des comptes de l'application ProxiBanque
+	 * @param Client
+	 * @param Conseiller
+	 * @return List <Compte>
+	 */
 	//afficher une liste de compte des clients du conseiller	
 	public static List<Compte> listerComptes(Client client, Conseiller conseiller) {
 		List<Compte> comptesDeMonClient = client.getComptes();
@@ -415,6 +489,10 @@ public class Lanceur {
 	
 	
 	
+	/**
+	 * Methode permettant d'afficher tout les comptes gérés par un conseiller de l'agence 
+	 * @param Conseiller
+	 */
 	//afficher une liste de compte des clients du conseiller	
 	public static void listerComptes(Conseiller conseiller) {
 		List<Compte> comptesDeMesClients = service.listeComptesMesClients(conseiller);
@@ -426,24 +504,36 @@ public class Lanceur {
 		
 	}
 	
+	/**
+	 * Methode permettant d'effectuer un virement d'un client vers un autre. Cette methode permet egalement d'effectuer
+	 * un virement d'un compte courant vers un compte epargne pour un meme client *
+	 * via le sous-menu de gestion des comptes de l'application ProxiBanque
+	 * @param conseiller
+	 */
+	
 	public static void effectuerVirement(Conseiller conseiller) {
 		listerClients(conseiller);
-		System.out.println("----  Saisir l'identifient du client pour lequel vous voulez faire un virement ----");
-		int idClient = sc.nextInt() ;
+		System.out.println("----  Saisir l'identifient du client pour a débiter----");
+		int idClient1 = sc.nextInt() ;
+		System.out.println("----  Saisir l'identifient du client pour a créditer----");
+		int idClient2 = sc.nextInt() ;
 		System.out.println("----  Saisir le montant de votre virement ----");
 		double montant = sc.nextDouble();
-		List<Compte> mesComptes = listerComptes(service.lireClient(idClient), conseiller);
-		System.out.println("----  Saisir l'identifient du compte sur lequel faire le virement ----");
-		int idCompte = sc.nextInt() ;
+		List<Compte> mesComptes1 = listerComptes(service.lireClient(idClient1), conseiller);
+		List<Compte> mesComptes2 = listerComptes(service.lireClient(idClient2), conseiller);
+		System.out.println("----  Saisir l'identifient du compte à débiter ----");
+		int idCompte1 = sc.nextInt() ;
+		System.out.println("----  Saisir l'identifient du compte sà créditer ----");
+		int idCompte2 = sc.nextInt() ;
 		try {
-			service.effectuerVirement(mesComptes.get(idCompte), montant);
+			service.effectuerVirement(mesComptes1.get(idCompte1), mesComptes2.get(idCompte2), montant);
 		} catch (SoldeInsuffisantException e) {
 			// TODO Auto-generated catch block
 			System.out.println("*************************");
 			System.out.println(e.getMessage() + " !!!!!");
 			System.out.println("*************************");
 		}	
-		listerComptes(service.lireClient(idClient), conseiller);
+		listerComptes(service.lireClient(idClient1), conseiller);
 	}
 	
 	
